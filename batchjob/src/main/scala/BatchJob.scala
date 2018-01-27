@@ -1,5 +1,6 @@
 import java.lang.management.ManagementFactory
 
+import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 import utils.MyEnv
 
@@ -23,8 +24,8 @@ object BatchJob {
     val sc = new  SparkContext(conf)
 
     val line = "Hello, world"
-    val rdd = sc.parallelize(List(line.toCharArray))
-
+    val rdd: RDD[Char] = sc.parallelize(line.toCharArray)
+    rdd.foreach(c => Thread.sleep(1000))
     println(rdd.count())
 
   }
